@@ -1,4 +1,5 @@
-#Based on https://code.activestate.com/recipes/491264-mini-fake-dns-server/
+#Adapted from on https://code.activestate.com/recipes/491264-mini-fake-dns-server/
+#Doug Carroll modified and added to heavily
 
 import socket
 
