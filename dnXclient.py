@@ -1,34 +1,26 @@
 import socket
+import os
+import sys
 
 VERSION = '1.0'
-USAGE = 'dnXclient -i <IP address of remote server> -p <port number of remote server>'
+USAGE = 'dnXclient <IP address of remote server> <port number of remote server>'
+
+serverIP = 'localhost'
+serverPort = 8123
 
 # Get command line options
-options, arguments = getopt.getopt(
-    sys.argv[1:],
-    'vhip:',
-    ['version", "help", "ipserver=", "portserver=']
-)
-ipserver = 'localhost'
-portserver = '8123'
-for o, a in options:
-    if o in ("-v", "--version"):
-        print(VERSION)
-        sys.exit()
-    if o in ("-h", "--help"):
-        print(USAGE)
-        sys.exit()
-    if o in ("-i", "--ipserver="):
-        ipserver = a
-    if o in ("-p", "--portserver"):
-        portserver = a
-if not arguments or len(arguments) > 4:
-    raise SystemExit(USAGE)
+if len(sys.argv) > 3:
+    print(USAGE)
+if len(sys.argv) == 2:
+    serverIP = sys.argv[1]
+if len(sys.argv) == 3:
+    serverIP = sys.argv[1]
+    serverPort = sys.argv[2]
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
-server_address = ('localhost', 8123)
+server_address = (serverIP, serverPort)
 print('Connecting to %s port %s' % server_address)
 sock.connect(server_address)
 try:
