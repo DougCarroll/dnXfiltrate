@@ -2,6 +2,26 @@
 #Doug Carroll modified and added to heavily
 
 import socket
+import os
+import sys
+
+VERSION = '1.0'
+USAGE = 'dnXserver  response_ip [command and control port]'
+
+response_ip='127.0.0.1'
+server_ip = 'localhost'
+server_port = 8123
+
+# Get command line options
+if len(sys.argv) > 3:
+    print(USAGE)
+if len(sys.argv) < 2:
+    print(USAGE)
+if len(sys.argv) == 2:
+    response_ip = sys.argv[1]
+if len(sys.argv) == 3:
+    response_ip = sys.argv[1]
+    server_port = sys.argv[2]
 
 class DNSQuery:
   def __init__(self, query):
@@ -29,14 +49,14 @@ class DNSQuery:
     return packet
 
 if __name__ == '__main__':
-  response_ip='162.0.228.2'
+  
   print('dsXServer:: domain.query. 60 IN A %s' % response_ip)
   
   udps = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-  udps.bind(('',53))
+  udps.bind(('',9999))
 
   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  server_address = ('localhost', 8123)
+  server_address = (server_ip, server_port)
   print('Starting server on %s port %s' % server_address)
   sock.bind(server_address)
   sock.listen(1)

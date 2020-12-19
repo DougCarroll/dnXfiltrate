@@ -3,7 +3,7 @@ import os
 import sys
 
 VERSION = '1.0'
-USAGE = 'dnXclient <IP address of remote server> <port number of remote server>'
+USAGE = 'dnXclient [<IP address of remote server> [port number of remote server] ]'
 
 serverIP = 'localhost'
 serverPort = 8123
