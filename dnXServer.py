@@ -53,7 +53,7 @@ if __name__ == '__main__':
   print('dsXServer:: domain.query. 60 IN A %s' % response_ip)
   
   udps = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-  udps.bind(('',9999))
+  udps.bind(('',53))
 
   sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
   server_address = (server_ip, server_port)
@@ -77,4 +77,3 @@ if __name__ == '__main__':
           print('Terminated')
           connection.close()
           udps.close()
-          
