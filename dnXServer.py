@@ -40,7 +40,17 @@ class DNSQuery:
   def response(self, ip):
     packet=''
     if self.domain:
-      packet+=self.query[:2] + "\x81\x80"
+      packet+=self.query[:2] + "\x81\x80"                            # Bit 1:    QR: 0=Request, 1=Response
+                                                                     # Bit 2-5:  OpCode for Request Type
+                                                                     # Bit 6:    AA: 0=From Cache, 1=Authoritative
+                                                                     # Bit 7:    TC: 1=Response too large for UDP
+                                                                     # Bit 8:    RD: 0=Iterative Response, 1=Recurseive Response
+                                                                     # Bit 9:    RA: 1=Server Manages Recursive
+                                                                     # Bit 10:   Z: Reserved
+                                                                     # Bit 11:   AD: Used by DNSSEC
+                                                                     # Bit 12:   CD: Used by DNSSEC
+                                                                     # Bit 13-16 Rcode: Error Codes
+                                                                     # 10000001 10000000 = 0x81 0x80
       packet+=self.query[4:6] + self.query[4:6] + '\x00\x00\x00\x00' # Questions and Answers Counts
       packet+=self.query[12:]                                        # Original Domain Name Question
       packet+='\xc0\x0c'                                             # Pointer to domain name
